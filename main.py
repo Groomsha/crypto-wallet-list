@@ -32,6 +32,7 @@ from gui_app.window_ctk.gui_ctk import GUI_ctk
 
 def main() -> None:
     gui_tk = GUI_ctk()
+    gui_tk.mainloop()
 
 
 if __name__ == "__main__":
