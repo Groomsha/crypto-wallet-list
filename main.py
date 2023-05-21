@@ -27,7 +27,7 @@ Ihor Cheberiak (c) 2023
 https://www.linkedin.com/in/ihor-cheberiak/
 """
 
-from gui_ctk import GUI_ctk
+from gui_app.window_ctk.gui_ctk import GUI_ctk
 
 
 def main() -> None:
