@@ -9,13 +9,13 @@ https://www.linkedin.com/in/ihor-cheberiak/
 import json
 from typing import Dict
 
-from gui_app.window_ctk.gui_ctk import GUI_ctk
+from gui_app.window_ctk.gui_ctk import GUI_CTk
 
 
 def main() -> None:
     settings = settings_app()
 
-    gui_tk = GUI_ctk(settings)
+    gui_tk = GUI_CTk(settings)
     gui_tk.mainloop()
 
 
