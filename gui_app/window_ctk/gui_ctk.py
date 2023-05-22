@@ -32,14 +32,14 @@ class GUI_CTk(customtkinter.CTk):
         self.navigation_window.grid(row=0, column=0, sticky="nsew")
         self.navigation_window.grid_rowconfigure(4, weight=1)
 
-        self.settings_frame = SettingsFrame()
-
         self.navigation()
 
+        self.settings_frame = SettingsFrame(self.navigation_window)
+
     def navigation(self) -> None:
-        self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_window, text="Navigation", image=None,
-                                                             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
-        self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
+        # self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_window, text="Navigation", image=None,
+        #                                                      compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
+        # self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
         self.button_news = customtkinter.CTkButton(self.navigation_window, corner_radius=0, height=40, border_spacing=10, text="News",
                                                    fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
@@ -55,3 +55,7 @@ class GUI_CTk(customtkinter.CTk):
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=None, anchor="w", command=None)
         self.button_settings.grid(row=3, column=0, sticky="ew")
+
+
+    # def settings(self) -> None:
+
