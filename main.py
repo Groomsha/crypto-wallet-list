@@ -7,15 +7,15 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import json
-from typing import Dict
+from typing import Any, Dict
 
 from gui_app.window_ctk.gui_ctk import GUI_CTk
 
 
 def main() -> None:
-    settings = settings_app()
+    settings: Dict = settings_app()
 
-    gui_tk = GUI_CTk(settings)
+    gui_tk: Any = GUI_CTk(settings)
     gui_tk.mainloop()
 
 

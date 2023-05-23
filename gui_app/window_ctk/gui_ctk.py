@@ -6,10 +6,14 @@ Ihor Cheberiak (c) 2023
 https://www.linkedin.com/in/ihor-cheberiak/
 """
 
-from typing import Dict
+import os
+from typing import Any, Dict
 
+from PIL import Image
 import customtkinter
 
+from .news_frame import NewsFrame
+from .wallet_frame import WalletFrame
 from .settings_frame import SettingsFrame
 
 
@@ -20,42 +24,101 @@ class GUI_CTk(customtkinter.CTk):
     def __init__(self, settings: Dict) -> None:
         super().__init__()
 
-        self.app_ctk = self
-        self.settings = settings
+        self._app_ctk: customtkinter.CTk = self
+        self._settings: Dict = settings
+        self._image_dir: str = 'images'
 
-        self.app_ctk.geometry("700x450")
-        self.app_ctk.title("Crypto Wallet List")
-        self.app_ctk.grid_rowconfigure(0, weight=1)
-        self.app_ctk.grid_columnconfigure(1, weight=1)
+        self._app_ctk.geometry("700x450")
+        self._app_ctk.title("Crypto Wallet List")
+        self._app_ctk.grid_rowconfigure(0, weight=1)
+        self._app_ctk.grid_columnconfigure(1, weight=1)
 
-        self.navigation_window = customtkinter.CTkFrame(self, corner_radius=0)
-        self.navigation_window.grid(row=0, column=0, sticky="nsew")
-        self.navigation_window.grid_rowconfigure(4, weight=1)
+        self._image_path = None
+        self._navigation_label = None
+        self._news_btn_image = None
+        self._wallet_btn_image = None
+        self._settings_btn_image = None
+        self._navigation_logo_image = None
+        self._image_gui_ctk()
 
-        self.navigation()
+        self._navigation_frame = None
+        self._create_news_frame = NewsFrame(self._app_ctk)
+        self._create_wallet_frame = WalletFrame(self._app_ctk)
+        self._create_settings_frame = SettingsFrame(self._app_ctk)
+        self._navigation_gui_ctk()
 
-        self.settings_frame = SettingsFrame(self.navigation_window)
+        self._news_frame_button = None
+        self._wallet_frame_button = None
+        self._settings_frame_button = None
+        self._btn_gui_ctk()
 
-    def navigation(self) -> None:
-        # self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_window, text="Navigation", image=None,
-        #                                                      compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
-        # self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
+        self._select_frame("news")
 
-        self.button_news = customtkinter.CTkButton(self.navigation_window, corner_radius=0, height=40, border_spacing=10, text="News",
+    @property
+    def image_path(self) -> Any:
+        return self._image_path
+
+    def _image_gui_ctk(self) -> None:
+        self._image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), self._image_dir)
+
+        self._navigation_logo_image = customtkinter.CTkImage(Image.open(os.path.join(self._image_path, "CustomTkinter_logo_single.png")), size=(26, 26))
+        self._news_btn_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(self._image_path, "home_dark.png")),
+                                                 dark_image=Image.open(os.path.join(self._image_path, "home_light.png")), size=(20, 20))
+        self._wallet_btn_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(self._image_path, "chat_dark.png")),
+                                                 dark_image=Image.open(os.path.join(self._image_path, "chat_light.png")), size=(20, 20))
+        self._settings_btn_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(self._image_path, "add_user_dark.png")),
+                                                     dark_image=Image.open(os.path.join(self._image_path, "add_user_light.png")), size=(20, 20))
+
+    def _navigation_gui_ctk(self) -> None:
+        self._navigation_frame = customtkinter.CTkFrame(self._app_ctk, corner_radius=0)
+        self._navigation_frame.grid(row=0, column=0, sticky="nsew")
+        self._navigation_frame.grid_rowconfigure(4, weight=1)
+
+        self._navigation_label = customtkinter.CTkLabel(self._navigation_frame, text="Image Example", image=self._navigation_logo_image,
+                                                             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
+        self._navigation_label.grid(row=0, column=0, padx=20, pady=20)
+
+    def _btn_gui_ctk(self) -> None:
+        self._news_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="News",
                                                    fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                   image=None, anchor="w", command=None)
-        self.button_news.grid(row=1, column=0, sticky="ew")
+                                                   image=self._news_btn_image, anchor="w", command=self._btn_news_event)
+        self._news_frame_button.grid(row=1, column=0, sticky="ew")
 
-        self.button_wallet = customtkinter.CTkButton(self.navigation_window, corner_radius=0, height=40, border_spacing=10, text="Wallet",
+        self._wallet_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Wallet",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=None, anchor="w", command=None)
-        self.button_wallet.grid(row=2, column=0, sticky="ew")
+                                                      image=self._wallet_btn_image, anchor="w", command=self._btn_wallet_event)
+        self._wallet_frame_button.grid(row=2, column=0, sticky="ew")
 
-        self.button_settings = customtkinter.CTkButton(self.navigation_window, corner_radius=0, height=40, border_spacing=10, text="Settings",
+        self._settings_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Settings",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=None, anchor="w", command=None)
-        self.button_settings.grid(row=3, column=0, sticky="ew")
+                                                      image=self._settings_btn_image, anchor="w", command=self._btn_settings_event)
+        self._settings_frame_button.grid(row=3, column=0, sticky="ew")
+
+    def _select_frame(self, name: str) -> None:
+        self._news_frame_button.configure(fg_color=("gray75", "gray25") if name == "news" else "transparent")
+        self._wallet_frame_button.configure(fg_color=("gray75", "gray25") if name == "wallet" else "transparent")
+        self._settings_frame_button.configure(fg_color=("gray75", "gray25") if name == "settings" else "transparent")
+
+        if name == "news":
+            self._create_news_frame.news_frame.grid(row=0, column=1, sticky="nsew")
+        else:
+            self._create_news_frame.news_frame.grid_forget()
+        if name == "wallet":
+            self._create_wallet_frame.wallet_frame.grid(row=0, column=1, sticky="nsew")
+        else:
+            self._create_wallet_frame.wallet_frame.grid_forget()
+        if name == "settings":
+            self._create_settings_frame.settings_frame.grid(row=0, column=1, sticky="nsew")
+        else:
+            self._create_settings_frame.settings_frame.grid_forget()
 
 
-    # def settings(self) -> None:
+    def _btn_news_event(self) -> None:
+        self._select_frame("news")
+
+    def _btn_wallet_event(self) -> None:
+        self._select_frame("wallet")
+
+    def _btn_settings_event(self) -> None:
+        self._select_frame("settings")
 
