@@ -7,14 +7,16 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import os
+from typing import Dict
 
 from PIL import Image
 import customtkinter
 
 
 class NewsFrame:
-    def __init__(self, ctk: customtkinter.CTkFrame) -> None:
+    def __init__(self, ctk: customtkinter.CTkFrame, lang: Dict) -> None:
         self._window = ctk
+        self._lang = lang
 
         self._large_image = None
         self._image_icon = None
@@ -38,5 +40,5 @@ class NewsFrame:
         self._image_icon = customtkinter.CTkImage(Image.open(os.path.join(self._window.image_path, "image_icon_light.png")), size=(20, 20))
 
     def _btn_news_frame(self) -> None:
-        self._news_button_1 = customtkinter.CTkButton(self._news_frame, text="", image=self._image_icon)
+        self._news_button_1 = customtkinter.CTkButton(self._news_frame, text=f"{self._lang.language_app.get('btn_news_one')}", image=self._image_icon)
         self._news_button_1.grid(row=1, column=0, padx=20, pady=10)

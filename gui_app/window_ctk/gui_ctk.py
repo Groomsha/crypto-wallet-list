@@ -44,9 +44,9 @@ class GUI_CTk(customtkinter.CTk):
         self._image_gui_ctk()
 
         self._navigation_frame = None
-        self._create_news_frame = NewsFrame(self._app_ctk)
-        self._create_wallet_frame = WalletFrame(self._app_ctk)
-        self._create_settings_frame = SettingsFrame(self._app_ctk)
+        self._create_news_frame = NewsFrame(self._app_ctk, self._lang)
+        self._create_wallet_frame = WalletFrame(self._app_ctk, self._lang)
+        self._create_settings_frame = SettingsFrame(self._app_ctk, self._lang)
         self._navigation_gui_ctk()
 
         self._news_frame_button = None
@@ -80,22 +80,22 @@ class GUI_CTk(customtkinter.CTk):
         self._navigation_frame.grid(row=0, column=0, sticky="nsew")
         self._navigation_frame.grid_rowconfigure(4, weight=1)
 
-        self._navigation_label = customtkinter.CTkLabel(self._navigation_frame, text="Image Example", image=self._navigation_logo_image,
+        self._navigation_label = customtkinter.CTkLabel(self._navigation_frame, text=f"{self._lang.language_app.get('btn_app_logo')}", image=self._navigation_logo_image,
                                                              compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
         self._navigation_label.grid(row=0, column=0, padx=20, pady=20)
 
     def _btn_gui_ctk(self) -> None:
-        self._news_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="News",
+        self._news_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text=f"{self._lang.language_app.get('btn_app_news')}",
                                                    fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                    image=self._news_btn_image, anchor="w", command=self._btn_news_event)
         self._news_frame_button.grid(row=1, column=0, sticky="ew")
 
-        self._wallet_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Wallet",
+        self._wallet_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text=f"{self._lang.language_app.get('btn_app_wallet')}",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self._wallet_btn_image, anchor="w", command=self._btn_wallet_event)
         self._wallet_frame_button.grid(row=2, column=0, sticky="ew")
 
-        self._settings_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Settings",
+        self._settings_frame_button = customtkinter.CTkButton(self._navigation_frame, corner_radius=0, height=40, border_spacing=10, text=f"{self._lang.language_app.get('btn_app_settings')}",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self._settings_btn_image, anchor="w", command=self._btn_settings_event)
         self._settings_frame_button.grid(row=3, column=0, sticky="ew")

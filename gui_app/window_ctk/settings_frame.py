@@ -7,14 +7,16 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import os
+from typing import Dict
 
 from PIL import Image
 import customtkinter
 
 
 class SettingsFrame:
-    def __init__(self, ctk: customtkinter.CTkFrame) -> None:
+    def __init__(self, ctk: customtkinter.CTkFrame, lang: Dict) -> None:
         self._window = ctk
+        self._lang = lang
 
         self._image_icon = None
         self._image_settings_frame()
@@ -34,17 +36,22 @@ class SettingsFrame:
         self._image_icon = customtkinter.CTkImage(Image.open(os.path.join(self._window.image_path, "image_icon_light.png")), size=(20, 20))
 
     def _btn_settings_frame(self) -> None:
-        self._btn_settings_save = customtkinter.CTkButton(self._settings_frame, text="Save", image=self._image_icon, compound="top")
+        self._btn_settings_save = customtkinter.CTkButton(self._settings_frame, text=f"{self._lang.language_app.get('btn_settings_save')}", image=self._image_icon, compound="top")
         self._btn_settings_save.grid(row=0, column=3, padx=20, pady=10)
 
-        self._btn_settings_mode = customtkinter.CTkOptionMenu(self._settings_frame, values=["Light", "Dark"], command=self._change_settings_mode_event)
+        self._btn_settings_mode = customtkinter.CTkOptionMenu(self._settings_frame, values=[f"{self._lang.language_app.get('mode_settings_theme_one')}", f"{self._lang.language_app.get('mode_settings_theme_two')}"], command=self._change_settings_mode_event)
         self._btn_settings_mode.grid(row=6, column=0, padx=20, pady=20, sticky="s")
 
-        self._btn_settings_lang = customtkinter.CTkOptionMenu(self._settings_frame, values=["English", "Ukrainian"], command=self._change_settings_language)
+        self._btn_settings_lang = customtkinter.CTkOptionMenu(self._settings_frame, values=[f"{self._lang.language_app.get('mode_settings_lang_one')}", f"{self._lang.language_app.get('mode_settings_lang_two')}"], command=self._change_settings_language)
         self._btn_settings_lang.grid(row=3, column=0, padx=20, pady=20, sticky="s")
 
-    def _change_settings_mode_event(self, new_appearance_mode) -> None:
-        customtkinter.set_appearance_mode(new_appearance_mode)
+    def _change_settings_mode_event(self, mode: str) -> None:
+        if mode == "Light" or mode ==  'Світла':
+            ref_mode: str = "Light"
+        elif mode == "Dark" or mode == 'Темна':
+            ref_mode: str = "Dark"
+
+        customtkinter.set_appearance_mode(ref_mode)
 
     def _change_settings_language(self, lang: str) -> None:
         pass
