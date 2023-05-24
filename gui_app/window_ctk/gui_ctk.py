@@ -12,9 +12,10 @@ from typing import Any, Dict
 from PIL import Image
 import customtkinter
 
-from .news_frame import NewsFrame
-from .wallet_frame import WalletFrame
-from .settings_frame import SettingsFrame
+from gui_app.language.language import Language
+from gui_app.window_ctk.news_frame import NewsFrame
+from gui_app.window_ctk.wallet_frame import WalletFrame
+from gui_app.window_ctk.settings_frame import SettingsFrame
 
 
 customtkinter.set_appearance_mode("System")
@@ -24,10 +25,11 @@ class GUI_CTk(customtkinter.CTk):
     def __init__(self, settings: Dict) -> None:
         super().__init__()
 
-        self._app_ctk: customtkinter.CTk = self
         self._settings: Dict = settings
         self._image_dir: str = 'images'
+        self._lang = Language(self._settings)
 
+        self._app_ctk: customtkinter.CTk = self
         self._app_ctk.geometry("700x450")
         self._app_ctk.title("Crypto Wallet List")
         self._app_ctk.grid_rowconfigure(0, weight=1)
@@ -57,6 +59,10 @@ class GUI_CTk(customtkinter.CTk):
     @property
     def image_path(self) -> Any:
         return self._image_path
+
+    @property
+    def language(self) -> Any:
+        return self._lang
 
     def _image_gui_ctk(self) -> None:
         self._image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), self._image_dir)
