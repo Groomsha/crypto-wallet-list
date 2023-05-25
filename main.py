@@ -14,10 +14,9 @@ from gui_app.window_ctk.gui_ctk import GUI_CTk
 
 
 def main() -> None:
-    path_app = PathDir()
-    settings_app = Settings()
+    settings_app = Settings(PathDir().path_app)
 
-    gui_tk: Any = GUI_CTk(settings_app)
+    gui_tk: Any = GUI_CTk(settings_app, PathDir().path_app)
     gui_tk.mainloop()
 
 

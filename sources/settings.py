@@ -1,19 +1,18 @@
 import json
 from typing import Dict
-from pathlib import Path
-
-SETTINGS: str = f'{Path.cwd()}/settings.json'
 
 
 class Settings:
-    def __init__(self) -> None:
+    def __init__(self, path: Dict) -> None:
+        self._path = path
+
         self._current: Dict = {}
         self._default: Dict = {'language': 'EN',
                                'proxy': 'False',
                                'theme': 'System'}
 
         try:
-            with open(SETTINGS, "r") as j:
+            with open(self._path.get('SETTINGS'), "r") as j:
                 self._current = json.load(j)
         except FileNotFoundError:
             self._current = self._default
@@ -35,5 +34,5 @@ class Settings:
 
         temp_new_settings = self._default
 
-        with open(SETTINGS, "w") as j:
+        with open(self._path.get('SETTINGS'), "w") as j:
             json.dump(temp_new_settings, j)

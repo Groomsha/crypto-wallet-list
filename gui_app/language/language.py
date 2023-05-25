@@ -8,15 +8,13 @@ https://www.linkedin.com/in/ihor-cheberiak/
 
 import json
 from typing import Any, Dict
-from pathlib import Path
-
-DIR_LANG: str = Path(Path.cwd(), 'gui_app', 'language')
 
 
 class Language:
-    def __init__(self, settings: Any) -> None:
+    def __init__(self, settings: Any, path: Dict) -> None:
         self._settings: Dict = settings.settings_app
         self._language_app: Dict = {}
+        self._path = path
 
         self._default: Dict = {
             "btn_app_logo": "Image Example",
@@ -45,7 +43,7 @@ class Language:
 
     def _open_lang_json(self, text: str) -> Dict:
         try:
-            with open(f"{DIR_LANG}/{text}.json", "r") as j:
+            with open(f"{self._path.get('DIR_LANG')}/{text}.json", "r") as j:
                 lang_temp: Dict = json.load(j)
             return lang_temp
         except FileNotFoundError:
