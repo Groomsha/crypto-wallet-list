@@ -15,7 +15,7 @@ DIR_LANG: str = Path(Path.cwd(), 'gui_app', 'language')
 
 class Language:
     def __init__(self, settings: Any) -> None:
-        self._settings: Dict = settings.current
+        self._settings: Dict = settings.settings_app
         self._language_app: Dict = {}
 
         self._default: Dict = {

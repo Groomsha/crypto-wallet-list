@@ -20,7 +20,7 @@ class Settings:
             self.save(None)
 
     @property
-    def current(self) -> Dict:
+    def settings_app(self) -> Dict:
         return self._current
 
     def save(self, new_settings: Dict):

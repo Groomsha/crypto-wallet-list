@@ -23,7 +23,7 @@ class SettingsFrame:
         self._image_settings_frame()
 
         self._settings_frame = customtkinter.CTkFrame(self._window, corner_radius=0, fg_color="transparent")
-        self._change_settings_mode_event(self._settings.current.get('theme'))
+        self._change_settings_mode_event(self._settings.settings_app.get('theme'))
 
         self._btn_settings_mode = None
         self._btn_settings_save = None
