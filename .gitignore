@@ -9,7 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 sandbox/
-gui_app/window_ctk/images/
+gui_app/images/*.*
 build/
 develop-eggs/
 dist/
