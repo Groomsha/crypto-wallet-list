@@ -8,6 +8,9 @@ https://www.linkedin.com/in/ihor-cheberiak/
 
 import json
 from typing import Dict
+from pathlib import Path
+
+DIR_LANG: str = Path(Path.cwd(), 'gui_app', 'language')
 
 
 class Language:
@@ -42,7 +45,7 @@ class Language:
 
     def _open_lang_json(self, text: str) -> Dict:
         try:
-            with open(f"{text}.json", "r") as j:
+            with open(f"{DIR_LANG}/{text}.json", "r") as j:
                 lang_temp: Dict = json.load(j)
             return lang_temp
         except FileNotFoundError:

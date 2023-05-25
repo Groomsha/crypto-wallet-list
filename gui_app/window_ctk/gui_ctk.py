@@ -8,6 +8,7 @@ https://www.linkedin.com/in/ihor-cheberiak/
 
 import os
 from typing import Any, Dict
+from pathlib import Path
 
 from PIL import Image
 import customtkinter
@@ -18,6 +19,7 @@ from gui_app.window_ctk.wallet_frame import WalletFrame
 from gui_app.window_ctk.settings_frame import SettingsFrame
 
 
+DIR_IMG: str = Path(Path.cwd(), 'gui_app', 'images')
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
@@ -26,7 +28,6 @@ class GUI_CTk(customtkinter.CTk):
         super().__init__()
 
         self._settings: Dict = settings
-        self._image_dir: str = 'images'
         self._lang = Language(self._settings)
 
         self._app_ctk: customtkinter.CTk = self
@@ -65,7 +66,7 @@ class GUI_CTk(customtkinter.CTk):
         return self._lang
 
     def _image_gui_ctk(self) -> None:
-        self._image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), self._image_dir)
+        self._image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), DIR_IMG)
 
         self._navigation_logo_image = customtkinter.CTkImage(Image.open(os.path.join(self._image_path, "CustomTkinter_logo_single.png")), size=(26, 26))
         self._news_btn_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(self._image_path, "home_dark.png")),
