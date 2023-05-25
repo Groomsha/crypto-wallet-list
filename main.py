@@ -6,14 +6,15 @@ Ihor Cheberiak (c) 2023
 https://www.linkedin.com/in/ihor-cheberiak/
 """
 
-import json
-from typing import Any, Dict
+from typing import Any
 
+from sources.path_dir import PathDir
 from sources.settings import Settings
 from gui_app.window_ctk.gui_ctk import GUI_CTk
 
 
 def main() -> None:
+    path_app = PathDir()
     settings_app = Settings()
 
     gui_tk: Any = GUI_CTk(settings_app)
