@@ -9,29 +9,15 @@ https://www.linkedin.com/in/ihor-cheberiak/
 import json
 from typing import Any, Dict
 
+from sources.settings import Settings
 from gui_app.window_ctk.gui_ctk import GUI_CTk
 
 
 def main() -> None:
-    settings: Dict = settings_app()
+    settings_app = Settings()
 
-    gui_tk: Any = GUI_CTk(settings)
+    gui_tk: Any = GUI_CTk(settings_app)
     gui_tk.mainloop()
-
-
-def settings_app() -> Dict:
-    try:
-        with open("settings.json", "r") as j:
-            settings_temp: Dict = json.load(j)
-        return settings_temp
-    except FileNotFoundError:
-        settings_temp: Dict = {'language': 'EN',
-                               'proxy': 'False'}
-
-        with open("settings.json", "w") as j:
-            json.dump(settings_temp, j)
-
-        return settings_temp
 
 
 if __name__ == "__main__":

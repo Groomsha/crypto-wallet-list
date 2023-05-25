@@ -7,15 +7,15 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import json
-from typing import Dict
+from typing import Any, Dict
 from pathlib import Path
 
 DIR_LANG: str = Path(Path.cwd(), 'gui_app', 'language')
 
 
 class Language:
-    def __init__(self, settings: Dict) -> None:
-        self._settings: Dict = settings
+    def __init__(self, settings: Any) -> None:
+        self._settings: Dict = settings.current
         self._language_app: Dict = {}
 
         self._default: Dict = {

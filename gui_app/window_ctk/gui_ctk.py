@@ -7,7 +7,7 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import os
-from typing import Any, Dict
+from typing import Any
 from pathlib import Path
 
 from PIL import Image
@@ -24,10 +24,10 @@ customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
 class GUI_CTk(customtkinter.CTk):
-    def __init__(self, settings: Dict) -> None:
+    def __init__(self, settings: Any) -> None:
         super().__init__()
 
-        self._settings: Dict = settings
+        self._settings: Any = settings
         self._lang = Language(self._settings)
 
         self._app_ctk: customtkinter.CTk = self
@@ -47,7 +47,7 @@ class GUI_CTk(customtkinter.CTk):
         self._navigation_frame = None
         self._create_news_frame = NewsFrame(self._app_ctk, self._lang)
         self._create_wallet_frame = WalletFrame(self._app_ctk, self._lang)
-        self._create_settings_frame = SettingsFrame(self._app_ctk, self._lang)
+        self._create_settings_frame = SettingsFrame(self._app_ctk,  self._settings, self._lang)
         self._navigation_gui_ctk()
 
         self._news_frame_button = None

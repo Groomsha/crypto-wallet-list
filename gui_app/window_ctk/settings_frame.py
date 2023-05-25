@@ -7,14 +7,15 @@ https://www.linkedin.com/in/ihor-cheberiak/
 """
 
 import os
-from typing import Dict
+from typing import Any, Dict
 
 from PIL import Image
 import customtkinter
 
 
 class SettingsFrame:
-    def __init__(self, ctk: customtkinter.CTkFrame, lang: Dict) -> None:
+    def __init__(self, ctk: customtkinter.CTkFrame, settings: Any, lang: Dict) -> None:
+        self._settings: Any = settings
         self._window = ctk
         self._lang = lang
 
@@ -22,6 +23,7 @@ class SettingsFrame:
         self._image_settings_frame()
 
         self._settings_frame = customtkinter.CTkFrame(self._window, corner_radius=0, fg_color="transparent")
+        self._change_settings_mode_event(self._settings.current.get('theme'))
 
         self._btn_settings_mode = None
         self._btn_settings_save = None
@@ -50,7 +52,10 @@ class SettingsFrame:
             ref_mode: str = "Light"
         elif mode == "Dark" or mode == 'Темна':
             ref_mode: str = "Dark"
+        else:
+            ref_mode: str = "System"
 
+        self._settings.save({'theme': ref_mode})
         customtkinter.set_appearance_mode(ref_mode)
 
     def _change_settings_language(self, lang: str) -> None:

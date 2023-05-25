@@ -1,3 +1,3 @@
-from .save_settings import *
+from .settings import *
 
 NAME: str = 'Crypto Wallet List: Sources App Package'
