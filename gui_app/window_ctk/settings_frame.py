@@ -31,6 +31,10 @@ class SettingsFrame:
         self._btn_settings_lang = None
         self._btn_settings_frame()
 
+        self._proxy_ch_box = None
+        self._proxy_server_entry = None
+        self._proxy_port_entry = None
+
     @property
     def settings_frame(self) -> customtkinter.CTkFrame:
         return self._settings_frame
@@ -40,13 +44,27 @@ class SettingsFrame:
 
     def _btn_settings_frame(self) -> None:
         self._btn_settings_save = customtkinter.CTkButton(self._settings_frame, text=f"{self._lang.language_app.get('btn_settings_save')}", image=self._image_icon, compound='top', command=self._change_settings_save)
-        self._btn_settings_save.grid(row=0, column=3, padx=20, pady=10)
+        self._btn_settings_save.grid(row=6, column=3, padx=20, pady=10)
 
         self._btn_settings_mode = customtkinter.CTkOptionMenu(self._settings_frame, values=[f"{self._lang.language_app.get('mode_settings_theme_one')}", f"{self._lang.language_app.get('mode_settings_theme_two')}"], command=self._change_settings_mode_event)
-        self._btn_settings_mode.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+        self._btn_settings_mode.grid(row=4, column=0, padx=20, pady=20, sticky="s")
 
         self._btn_settings_lang = customtkinter.CTkOptionMenu(self._settings_frame, values=[f"{self._lang.language_app.get('mode_settings_lang_one')}", f"{self._lang.language_app.get('mode_settings_lang_two')}"], command=self._change_settings_language)
-        self._btn_settings_lang.grid(row=3, column=0, padx=20, pady=20, sticky="s")
+        self._btn_settings_lang.grid(row=4, column=1, padx=20, pady=20, sticky="s")
+
+        self._proxy_ch_box = customtkinter.CTkCheckBox(self._settings_frame, text="Proxy", command=self._proxy_settings_frame)
+        self._proxy_ch_box.grid(row=5, column=0, pady=(20, 0), padx=20, sticky="n")
+
+        self._proxy_server_entry = customtkinter.CTkEntry(self._settings_frame, placeholder_text="server")
+        self._proxy_server_entry.grid(row=5, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self._proxy_server_entry.configure(state="disabled")
+
+        self._proxy_port_entry = customtkinter.CTkEntry(self._settings_frame, placeholder_text="port")
+        self._proxy_port_entry.grid(row=5, column=2, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self._proxy_port_entry.configure(state="disabled")
+
+    def _proxy_settings_frame(self) -> None:
+        pass
 
     def _change_settings_mode_event(self, mode: str) -> None:
         if mode == "Light" or mode ==  'Світла':
