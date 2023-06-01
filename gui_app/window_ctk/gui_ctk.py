@@ -30,7 +30,7 @@ class GUI_CTk(customtkinter.CTk):
         self._lang = Language(self._settings, path)
 
         self._app_ctk: customtkinter.CTk = self
-        self._app_ctk.geometry("700x450")
+        self._app_ctk.geometry("1024x768")
         self._app_ctk.title("Crypto Wallet List")
         self._app_ctk.grid_rowconfigure(0, weight=1)
         self._app_ctk.grid_columnconfigure(1, weight=1)
