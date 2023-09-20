@@ -6,23 +6,27 @@ Ihor Cheberiak (c) 2023
 https://www.linkedin.com/in/ihor-cheberiak/
 """
 
-from typing import Any
+import sys
+
+from PySide6.QtWidgets import QApplication, QMainWindow
+from gui_app.window_qt.main_window_app import MainWindowApp
 
 from sources.path_dir import PathDir
 from sources.settings import Settings
 
-from gui_app.window_ctk.gui_ctk import GUI_CTk
-from gui_app.window_dear.gui_dear import GUI_Dear
 
-
-def main() -> None:
-    settings_app = Settings(PathDir().path_app)
-
-    gui_dear: Any = GUI_Dear()
-
-    # gui_tk: Any = GUI_CTk(settings_app, PathDir().path_app)
-    # gui_tk.mainloop()
+class CreateApp(QMainWindow):
+    def __init__(self) -> None:
+        super().__init__()
+        self.gui_qt_window = MainWindowApp()
+        self.gui_qt_window.setupUi(self)
 
 
 if __name__ == "__main__":
-    main()
+    settings_app = Settings(PathDir().path_app)
+
+    app = QApplication(sys.argv)
+    main_window_qt = CreateApp()
+    main_window_qt.show()
+
+    sys.exit(app.exec())
