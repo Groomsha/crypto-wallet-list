@@ -16,9 +16,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
-    QLabel, QLineEdit, QMainWindow, QPushButton,
-    QSizePolicy, QStatusBar, QTabWidget, QVBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QMainWindow,
+    QPushButton, QScrollBar, QSizePolicy, QStatusBar,
+    QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
     QWidget)
+import gui_app.main_imag_window
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -28,6 +30,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1024, 768)
         MainWindow.setMinimumSize(QSize(1024, 768))
         MainWindow.setMaximumSize(QSize(1024, 768))
+        MainWindow.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -46,9 +49,55 @@ class Ui_MainWindow(object):
         self.f_news.setSizePolicy(sizePolicy)
         self.f_news.setSizeIncrement(QSize(0, 0))
         self.f_news.setBaseSize(QSize(0, 0))
+        self.f_news_2 = QFrame(self.f_news)
+        self.f_news_2.setObjectName(u"f_news_2")
+        self.f_news_2.setGeometry(QRect(10, 10, 681, 701))
+        self.f_news_2.setFrameShape(QFrame.Box)
+        self.f_news_2.setFrameShadow(QFrame.Raised)
+        self.label_3 = QLabel(self.f_news_2)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(0, 0, 681, 701))
+        self.label_3.setFrameShape(QFrame.NoFrame)
+        self.verticalScrollBar = QScrollBar(self.f_news_2)
+        self.verticalScrollBar.setObjectName(u"verticalScrollBar")
+        self.verticalScrollBar.setGeometry(QRect(660, 0, 20, 701))
+        self.verticalScrollBar.setOrientation(Qt.Vertical)
+        self.f_btc = QFrame(self.f_news)
+        self.f_btc.setObjectName(u"f_btc")
+        self.f_btc.setGeometry(QRect(700, 10, 271, 71))
+        self.f_btc.setFrameShape(QFrame.Box)
+        self.f_btc.setFrameShadow(QFrame.Raised)
+        self.label = QLabel(self.f_btc)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 10, 191, 51))
+        self.label.setFrameShape(QFrame.Box)
+        self.label_2 = QLabel(self.f_btc)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(210, 10, 51, 51))
+        self.label_2.setFrameShape(QFrame.Box)
+        self.f_cript = QFrame(self.f_news)
+        self.f_cript.setObjectName(u"f_cript")
+        self.f_cript.setGeometry(QRect(700, 90, 271, 621))
+        self.f_cript.setFrameShape(QFrame.Box)
+        self.f_cript.setFrameShadow(QFrame.Raised)
         self.frame_tab_widget.addTab(self.f_news, "")
         self.f_wall = QWidget()
         self.f_wall.setObjectName(u"f_wall")
+        self.tableWidget = QTableWidget(self.f_wall)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(10, 10, 961, 641))
+        self.btn_new = QPushButton(self.f_wall)
+        self.btn_new.setObjectName(u"btn_new")
+        self.btn_new.setGeometry(QRect(60, 670, 151, 41))
+        icon = QIcon()
+        icon.addFile(u":/icon/images/add_user_dark.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_new.setIcon(icon)
+        self.btn_edited = QPushButton(self.f_wall)
+        self.btn_edited.setObjectName(u"btn_edited")
+        self.btn_edited.setGeometry(QRect(410, 670, 151, 41))
+        self.btn_deleted = QPushButton(self.f_wall)
+        self.btn_deleted.setObjectName(u"btn_deleted")
+        self.btn_deleted.setGeometry(QRect(760, 670, 151, 41))
         self.frame_tab_widget.addTab(self.f_wall, "")
         self.f_setti = QWidget()
         self.f_setti.setObjectName(u"f_setti")
@@ -127,7 +176,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.frame_tab_widget.setCurrentIndex(2)
+        self.frame_tab_widget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -135,7 +184,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Crypto Wallet List", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.frame_tab_widget.setTabText(self.frame_tab_widget.indexOf(self.f_news), QCoreApplication.translate("MainWindow", u"News", None))
+        self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
+        self.btn_edited.setText(QCoreApplication.translate("MainWindow", u"Edited", None))
+        self.btn_deleted.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.frame_tab_widget.setTabText(self.frame_tab_widget.indexOf(self.f_wall), QCoreApplication.translate("MainWindow", u"Wallet", None))
         self.btn_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.btn_backup.setText(QCoreApplication.translate("MainWindow", u"Backup", None))

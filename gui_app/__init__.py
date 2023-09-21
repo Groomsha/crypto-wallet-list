@@ -1,5 +1,3 @@
-from .images import *
-from .language import *
-from .window_ctk import *
-
-NAME: str = 'Crypto Wallet List: GUI App Package'
+from .main_window_app import MainWindowApp
+from .main_window_base import Ui_MainWindow
+from .main_imag_window import *

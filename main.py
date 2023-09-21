@@ -9,7 +9,7 @@ https://www.linkedin.com/in/ihor-cheberiak/
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow
-from gui_app.window_qt.main_window_app import MainWindowApp
+from gui_app.main_window_app import MainWindowApp
 
 from sources.path_dir import PathDir
 from sources.settings import Settings
