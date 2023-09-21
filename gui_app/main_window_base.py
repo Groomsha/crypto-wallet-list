@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QHeaderView, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QScrollBar, QSizePolicy, QStatusBar,
+    QPushButton, QScrollArea, QSizePolicy, QStatusBar,
     QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
     QWidget)
 import gui_app.main_imag_window
@@ -49,19 +49,6 @@ class Ui_MainWindow(object):
         self.f_news.setSizePolicy(sizePolicy)
         self.f_news.setSizeIncrement(QSize(0, 0))
         self.f_news.setBaseSize(QSize(0, 0))
-        self.f_news_2 = QFrame(self.f_news)
-        self.f_news_2.setObjectName(u"f_news_2")
-        self.f_news_2.setGeometry(QRect(10, 10, 681, 701))
-        self.f_news_2.setFrameShape(QFrame.Box)
-        self.f_news_2.setFrameShadow(QFrame.Raised)
-        self.label_3 = QLabel(self.f_news_2)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(0, 0, 681, 701))
-        self.label_3.setFrameShape(QFrame.NoFrame)
-        self.verticalScrollBar = QScrollBar(self.f_news_2)
-        self.verticalScrollBar.setObjectName(u"verticalScrollBar")
-        self.verticalScrollBar.setGeometry(QRect(660, 0, 20, 701))
-        self.verticalScrollBar.setOrientation(Qt.Vertical)
         self.f_btc = QFrame(self.f_news)
         self.f_btc.setObjectName(u"f_btc")
         self.f_btc.setGeometry(QRect(700, 10, 271, 71))
@@ -80,6 +67,18 @@ class Ui_MainWindow(object):
         self.f_cript.setGeometry(QRect(700, 90, 271, 621))
         self.f_cript.setFrameShape(QFrame.Box)
         self.f_cript.setFrameShadow(QFrame.Raised)
+        self.scrollArea = QScrollArea(self.f_news)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setGeometry(QRect(9, 9, 681, 701))
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 679, 699))
+        self.label_3 = QLabel(self.scrollAreaWidgetContents)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(0, 0, 681, 701))
+        self.label_3.setFrameShape(QFrame.NoFrame)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.frame_tab_widget.addTab(self.f_news, "")
         self.f_wall = QWidget()
         self.f_wall.setObjectName(u"f_wall")
@@ -176,7 +175,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.frame_tab_widget.setCurrentIndex(1)
+        self.frame_tab_widget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -184,9 +183,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Crypto Wallet List", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.frame_tab_widget.setTabText(self.frame_tab_widget.indexOf(self.f_news), QCoreApplication.translate("MainWindow", u"News", None))
         self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.btn_edited.setText(QCoreApplication.translate("MainWindow", u"Edited", None))
